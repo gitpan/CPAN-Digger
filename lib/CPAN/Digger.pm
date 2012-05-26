@@ -3,43 +3,45 @@ use 5.008008;
 use Moose;
 use MooseX::StrictConstructor;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use autodie;
-use Carp                  ();
-use Template              ();
+use Carp     ();
+use Template ();
 
 #use CPAN::Digger::DB;
 
-has 'root'    => (is => 'ro', isa => 'Str');
-has 'dbfile'  => (is => 'ro', isa => 'Str');
+has 'root'   => ( is => 'ro', isa => 'Str' );
+has 'dbfile' => ( is => 'ro', isa => 'Str' );
 
 #has 'db'     => (is => 'rw', isa => 'MongoDB::Database');
 
-has 'tt'     => (is => 'rw', isa => 'Template');
+has 'tt' => ( is => 'rw', isa => 'Template' );
 
 sub BUILD {
 	my $self = shift;
+
 	#$self->db(CPAN::Digger::DB->db);
-};
+}
 
 
 sub get_tt {
 	my $self = shift;
 
-	if (not $self->tt) {
+	if ( not $self->tt ) {
 
 		my $root = $self->root;
-	
+
 		my $config = {
 			INCLUDE_PATH => "$root/views",
 			INTERPOLATE  => 1,
 			POST_CHOMP   => 1,
-		#	PRE_PROCESS  => 'incl/header.tt',
-		#	POST_PROCESS  => 'incl/footer.tt',
-			EVAL_PERL    => 1,
+
+			#	PRE_PROCESS  => 'incl/header.tt',
+			#	POST_PROCESS  => 'incl/footer.tt',
+			EVAL_PERL => 1,
 		};
-		$self->tt(Template->new($config));
+		$self->tt( Template->new($config) );
 	}
 
 	return $self->tt;
@@ -63,12 +65,49 @@ For internal usage follow the SETUP section.
 
 Download the tar.gz file. Open it and install all its dependencies.
 
-Running perl script\cpan_digger_index.pl will create a local database
+Running perl script\cpan_digger.pl will create a local database
 using the module given in the directory given with the --dir option.
 
 Running CPAN-Digger-WWW.pl will launch a stand-alone web server.
 
+=head1 CPAN::Mini
+
+quick instruction for using CPAN::Mini
+
+- minicpan -l /home/gabor/Downloads/cpan -r http://cpan.pair.com/
+   ftp://cpan.hexten.net/
+- allow the installation of CPAN::Digger and let the indexer copy all the files necessary to run the operation
+
+Proc::Daemon does not show the documentation http://cpandigger.org/dist/Proc-Daemon
+
+http://ontwik.com/perl/perl-programming-best-practices/
+
+Using unzipped releases:
+sudo mkdir /var/www/cpan-digger
+sudo mkdir /var/www/cpan-digger/logs
+sudo chmod a+w /var/www/cpan-digger/logs
+sudo mkdir /var/www/cpan-digger/digger
+sudo chown gabor.gabor /var/www/cpan-digger/digger
+cd /var/www/cpan-digger/
+sudo tar xzf CPAN-Digger-0.02.tar.gz
+sudo mkdir CPAN-Digger-0.02/logs
+sudo chmod a+w CPAN-Digger-0.02/logs
+edit the environments/production.yml file
+and set the path to the database to
+/var/www/cpan-digger/digger/digger.db
+
+
 =head1 Indexing
+
+CPAN indexes:
+
+  authors/01mailrc.txt.gz by Parse::CPAN::Authors (we don't use this) (CPAN.pm uses)
+  authors/00whois.xml     by Parse::CPAN::Whois  (superset of the above)
+  modules/02packages.details.txt.gz  by Parse::CPAN::Packages   (CPAN.pm uses)
+                            also by CPAN::PackageDetails
+  modules/03modlist.data.gz   (CPAN.pm uses)
+
+
 
 =head2 Word indexing (planned)
 
@@ -95,6 +134,29 @@ for each word include where it could be found
    cgi     distro               CGI-Application
    cgi     module               CGI::Simple
    cgi     module               CGI::Application
+
+
+=head1 Projects
+
+CPAN::Digger is (going to be) capable of processing non-CPAN projects as well.
+We are still trying to design how that should work. Let's start with one example:
+
+Dreamwidth L<http://dreamwidth.org> uses Mercurial to maintain their source code.
+To check out their main repository type:
+
+  hg clone http://hg.dwscoalition.org/dw-free/
+
+projects file:
+  Name:      DW-Free          will be used as the distribution
+  Version:   1.0              some projects might want to index several versions, this field can be used to indicated that
+  Author:    DREAMWIDTH       will be used instead of the PAUSEID (a leading underscore can ensure there is no conflict
+                              with real (even future) PAUSEIDs)
+  Path:      /path/to/source  path to where the source code lives (CPAN::Digger will copy the files from there)
+  Description:    some text    not used by the digger
+
+Currently the Digger won't try to update the source directory using the VCS tools.
+
+
 
 =head1 AUTHOR
 

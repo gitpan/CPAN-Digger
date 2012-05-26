@@ -3,14 +3,15 @@ abstract: 'To dig CPAN'
 author:
   - 'Gabor Szabo'
 build_requires:
-  ExtUtils::MakeMaker: 6.42
+  ExtUtils::MakeMaker: 6.59
   Test::Deep: 0.108
   Test::More: 0.98
   Test::NoWarnings: 1.02
 configure_requires:
-  ExtUtils::MakeMaker: 6.42
+  ExtUtils::MakeMaker: 6.59
 distribution_type: module
-generated_by: 'Module::Install version 1.00'
+dynamic_config: 1
+generated_by: 'Module::Install version 1.06'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -18,7 +19,9 @@ meta-spec:
 name: CPAN-Digger
 no_index:
   directory:
+    - eg
     - inc
+    - share
     - t
 requires:
   Archive::Any: 0.0932
@@ -36,6 +39,7 @@ requires:
   File::Copy::Recursive: 0.38
   File::Find::Rule: 0.32
   File::Path: 0
+  File::ShareDir: 1.03
   File::Spec: 0
   File::Temp: 0
   Getopt::Long: 0
@@ -66,4 +70,4 @@ requires:
   perl: 5.008008
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.02
+version: 0.03
