@@ -43,6 +43,7 @@
             "Capture::Tiny" : "0.10",
             "Carp" : 0,
             "Cwd" : 0,
+            "DBD::SQLite" : "1.35",
             "DBI" : "1.611",
             "Dancer" : "1.3040",
             "Data::Dumper" : 0,
@@ -90,5 +91,5 @@
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.02"
+   "version" : "0.03"
 }
