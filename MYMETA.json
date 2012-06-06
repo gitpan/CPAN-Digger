@@ -79,7 +79,6 @@
             "Template" : "2.22",
             "Time::HiRes" : 0,
             "YAML" : "0.73",
-            "YAML::Any" : "0.72",
             "autodie" : "2.10",
             "perl" : "5.008008"
          }
@@ -91,5 +90,5 @@
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.04"
+   "version" : "0.05"
 }
