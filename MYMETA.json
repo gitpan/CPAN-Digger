@@ -72,8 +72,6 @@
             "Perl::Critic::Bangs" : "1.10",
             "Perl::Critic::Compatibility" : "1.001",
             "Perl::Critic::Deprecated" : "1.108",
-            "Perl::Critic::Dynamic" : "0.05",
-            "Perl::Critic::Git" : "v1.1.2",
             "Perl::Critic::Itch" : "0.07",
             "Perl::Critic::Lax" : "0.009",
             "Perl::Critic::More" : "1.000",
@@ -82,7 +80,6 @@
             "Perl::Critic::PetPeeves::JTRAMMELL" : "0.02",
             "Perl::Critic::Policy::CodeLayout::ProhibitSpaceIndentation" : "1.02",
             "Perl::Critic::Policy::CodeLayout::TabIndentSpaceAlign" : "v1.0.2",
-            "Perl::Critic::Policy::Dynamic::NoIndirect" : "0.06",
             "Perl::Critic::Policy::logicLAB::ProhibitShellDispatch" : "0.01",
             "Perl::Critic::Policy::logicLAB::ProhibitUseLib" : "0.01",
             "Perl::Critic::Policy::logicLAB::RequireSheBang" : "0.03",
@@ -110,9 +107,13 @@
    },
    "release_status" : "stable",
    "resources" : {
+      "homepage" : "http://cpandigger.com/",
       "license" : [
          "http://dev.perl.org/licenses/"
-      ]
+      ],
+      "repository" : {
+         "url" : "https://github.com/szabgab/CPAN-Digger"
+      }
    },
-   "version" : "0.06"
+   "version" : "0.07"
 }
